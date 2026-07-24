@@ -519,7 +519,7 @@ document.getElementById('noteBox').textContent = '📌 ' + (kpi.note || '');
 
 // ---------- Recompute KPI banner + Buyer/Repurchase/NewUser + TH/Cảng stats from filtered raw rows ----------
 function computeKpiFromRows(rows){
-  const sum = (key) => rows.reduce((a,r)=>a+(r[key]||0),0);
+  const sum = (key) => rows.reduce((a,r)=>{const v=Number(r[key]);return a+(isNaN(v)?0:v);},0);
   const newUser = sum('kh_moi_biet');
   const repurchase = sum('kh_mua_lan_dau');
   const thRows = rows.filter(r=>r.kenh_thuc_hien==='Tạp Hóa');
